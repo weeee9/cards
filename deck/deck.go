@@ -57,12 +57,9 @@ func Less(deck []Card) func(i, j int) bool {
 
 var shuffleRand = rand.New(rand.NewSource(time.Now().Unix()))
 
-func Suffle(deck []Card, randSource ...rand.Source) []Card {
+func Shuffle(deck []Card) []Card {
 	result := make([]Card, len(deck))
 
-	if len(randSource) > 0 {
-		shuffleRand = rand.New(randSource[0])
-	}
 	perm := shuffleRand.Perm(len(deck))
 
 	for idx, p := range perm {
