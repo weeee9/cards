@@ -6,7 +6,15 @@ import (
 	"time"
 )
 
-func New(opts ...DeckOption) []Card {
+type deck []Card
+
+func (d *deck) Draw() Card {
+	card := (*d)[0]
+	*d = (*d)[1:]
+	return card
+}
+
+func New(opts ...DeckOption) deck {
 	var cards []Card
 
 	for _, suit := range suits {
