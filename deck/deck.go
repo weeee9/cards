@@ -8,10 +8,25 @@ import (
 
 type deck []Card
 
+type Player interface {
+	Hit(Card)
+	Stand()
+	Hand() string
+}
+
 func (d *deck) Draw() Card {
 	card := (*d)[0]
 	*d = (*d)[1:]
 	return card
+}
+
+// Deal n cards to each player
+func (d *deck) Deal(n int, players ...Player) {
+	for i := 0; i < n; i++ {
+		for j := range players {
+			players[j].Hit(d.Draw())
+		}
+	}
 }
 
 func New(opts ...DeckOption) deck {

@@ -41,6 +41,13 @@ func (s suit) String() string {
 	return ""
 }
 
+func (s suit) point() int {
+	if s == joker {
+		return 5
+	}
+	return 4 - int(s)
+}
+
 type rank uint8
 
 const (
@@ -65,15 +72,15 @@ const (
 
 var rankMap = map[rank]string{
 	ace:   "Ace",
-	two:   "Two",
-	three: "Three",
-	four:  "Four",
-	five:  "Five",
-	six:   "Six",
-	seven: "Seven",
-	eight: "Eight",
-	nine:  "Nine",
-	ten:   "Ten",
+	two:   "2",
+	three: "3",
+	four:  "4",
+	five:  "5",
+	six:   "6",
+	seven: "7",
+	eight: "8",
+	nine:  "9",
+	ten:   "9",
 	jack:  "Jack",
 	queen: "Queen",
 	king:  "King",
@@ -95,6 +102,14 @@ func (r rank) String() string {
 	return ""
 }
 
+func (r rank) isAce() bool {
+	return r == ace
+}
+
+func (r rank) point() int {
+	return int(r)
+}
+
 type Card struct {
 	Suit suit
 	Rank rank
@@ -105,6 +120,14 @@ func (c Card) String() string {
 		return "Joker"
 	}
 	return fmt.Sprintf("%s of %ss", c.Rank.String(), c.Suit.String())
+}
+
+func (c Card) IsAce() bool {
+	return c.Rank.isAce()
+}
+
+func (c Card) Point() int {
+	return c.Rank.point()
 }
 
 func absRank(c Card) int {
