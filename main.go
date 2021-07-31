@@ -37,7 +37,7 @@ func main() {
 	}
 
 	for dealer.Score() <= 16 ||
-		// Ace + 6 can count as 7 or 17
+		// Ace + 6 can count as 7 or 17 (soft 17)
 		(dealer.Score() == 17 && dealer.MinScore() != dealer.Score()) {
 		dealer.Hit(deck.Draw())
 	}

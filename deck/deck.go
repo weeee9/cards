@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-type deck []Card
+type Deck []Card
 
 type Player interface {
 	Hit(Card)
@@ -14,14 +14,14 @@ type Player interface {
 	Hand() string
 }
 
-func (d *deck) Draw() Card {
+func (d *Deck) Draw() Card {
 	card := (*d)[0]
 	*d = (*d)[1:]
 	return card
 }
 
 // Deal n cards to each player
-func (d *deck) Deal(n int, players ...Player) {
+func (d *Deck) Deal(n int, players ...Player) {
 	for i := 0; i < n; i++ {
 		for j := range players {
 			players[j].Hit(d.Draw())
@@ -29,7 +29,7 @@ func (d *deck) Deal(n int, players ...Player) {
 	}
 }
 
-func New(opts ...DeckOption) deck {
+func New(opts ...DeckOption) Deck {
 	var cards []Card
 
 	for _, suit := range suits {

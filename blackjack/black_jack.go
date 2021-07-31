@@ -25,6 +25,10 @@ func NewPlayer() *Player {
 	return &Player{}
 }
 
+func (p *Player) CanMove() bool {
+	return !p.stand
+}
+
 func (p *Player) Hit(c deck.Card) {
 	p.hand = append(p.hand, c)
 }
